@@ -81,7 +81,7 @@ public class CouchDbContext {
 		final URI uri = buildUri(dbc.getBaseUri()).path(dbName).build();
 		try {
 			getresp = dbc.get(uri);
-		} catch (NoDocumentException e) { // db doesn't exist
+		} catch (NoDocumentException e) { // db doesn't exist，通过get请求来判断db是否已存在，不存在则异常，然后异常处理中创建
 			final HttpPut put = new HttpPut(uri);
 			putresp = dbc.executeRequest(put);
 			log.info(String.format("Created Database: '%s'", dbName));

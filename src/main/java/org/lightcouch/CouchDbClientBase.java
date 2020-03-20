@@ -98,7 +98,9 @@ public abstract class CouchDbClientBase {
 		final String path = props.getPath() != null ? props.getPath() : "";
         this.baseURI = buildUri().scheme(props.getProtocol()).host(props.getHost()).port(props.getPort()).path("/").path(path).build();
 		this.dbURI   = buildUri(baseURI).path(props.getDbName()).path("/").build();
-		
+		/**
+		 * 在构造方法中，判断是否需要自动创建db，并warm up client
+		 */
 		this.context = new CouchDbContext(this, props); 
 		this.design = new CouchDbDesign(this);
 	}
